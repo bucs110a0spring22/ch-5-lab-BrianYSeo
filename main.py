@@ -31,8 +31,67 @@ import time
 #########################################################
 #                   Your Code Goes Below                #
 #########################################################
+def drawSquare(myturtle, width, top_left_x, top_left_y):
+  myturtle.up()
+  myturtle.goto(top_left_x, top_left_y)
+  myturtle.down()
+  for i in range (4):
+    myturtle.forward(width)
+    myturtle.right(90)
 
+def drawLine(myturtle, x_start, y_start, x_end, y_end):
+  myturtle.up()
+  myturtle.goto(x_start, y_start)
+  myturtle.down()
+  myturtle.goto(x_end, y_end)
 
+def drawCircle(myturtle, radius):
+  myturtle.circle(radius, None, 100)
+
+def setUpDartboard(wn, dart):
+  wn.setworldcoordinates(-1, -1, 1, 1)
+  drawSquare(dart, 2, -1, 1)
+  drawLine(dart, -1, 0, 1, 0)
+  drawLine(dart, 0, 1, 0, -1)
+  drawCircle(dart, 1)
+
+def isInCircle(turtle):
+  return turtle.distance(0,0) < 1
+
+def throwDart(turtle):
+  x = random.uniform(-1,1)
+  y = random.uniform(-1,1)
+  turtle.up()
+  turtle.goto(x, y)
+  turtle.down()
+  if isInCircle(turtle):
+    turtle.dot("green")
+  else:
+    turtle.dot("red")
+
+def playDarts(turtle):
+  p1 = 0
+  p2 = 0
+  for i in range (10):
+    throwDart(turtle)
+  if isInCircle(turtle):
+    p1 += 1
+
+    throwDart(turtle)
+  if isInCircle(turtle):
+    p2 += 1
+	
+  print("Player 1: ", p1, " points!")
+  print("Player 2: ", p2, " points!")
+	
+def montePi(turtle, num):
+  inside_count = 0
+  for i in range(num):
+    throwDart(turtle)
+  if isInCircle(turtle):
+    inside_count += 1
+    approx_pi = inside_count / num
+  return 4 * approx_pi
 
 #########################################################
 #         Do not alter any code below here              #
